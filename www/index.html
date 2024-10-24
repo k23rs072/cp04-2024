@@ -159,14 +159,13 @@
     var s = parseInt(rest - m*60);
     var mstr = "分: ";
     var audio = new Audio(); 
-    var songList = ["twoheart.mp3", "spacetravel.mp3"];
-    var currentSongIndex = 0;
 
     // ボタンの初期設定
     function init(){
         $('#btnA').prop('disabled', false);
         $('#btnB').prop('disabled', false);
         $('#btnC').prop('disabled', false);
+        $('#btnD').prop('disabled', false);
         btnCClick(null);
         
     }
@@ -184,7 +183,7 @@
     function btnAClick(e){
         //active = true; 
         if (audio.paused && audio.currentTime > 0) {
-            audio.play(); 
+            audio.play(); // 一時停止した場所から再開
         } else {
             startTime = new Date();
             var canvas = $("#mycanvas")[0];
@@ -194,8 +193,8 @@
             img.onload = function() {     
                 ctx.drawImage(img, 0, 0, 200, 200); 
             }; 
-        audio.src = songList[currentSongIndex];
-        audio.play();
+            audio.src = "twoheart.mp3";
+            audio.play();
         }
     }
 
@@ -215,15 +214,6 @@
         audio.currentTime = 0;  
     }
 
-     function btnDClick(e){
-        active = false; 
-        audio.pause();
-        currentSongIndex = (currentSongIndex + 1) % songList.length;
-        audio.src = songList[currentSongIndex];
-        audio.play();
-    }
-    
- 
     // 繰り返し実行する処理
     function timer(){
         if (active) { 
@@ -260,4 +250,4 @@
     <input type="number" id="minute" value=0 >
     <input type="number" id="second" value=15 >
 </body>
-</html>
+</html> 
